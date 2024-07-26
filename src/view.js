@@ -1,39 +1,40 @@
 export class View {
-    static setGridSize(x, y) {
-        const gridContainer = document.getElementById('grid-container');
+    static gridContainer = document.getElementById('grid-container');
 
-        gridContainer.style.gridTemplateColumns = `repeat(${x}, 1fr)`;
-        gridContainer.style.gridTemplateRows = `repeat(${y}, 1fr)`;
+    static setGridSize(x, y) {
+        this.gridContainer.style.gridTemplateColumns = `repeat(${x}, 1fr)`;
+        this.gridContainer.style.gridTemplateRows = `repeat(${y}, 1fr)`;
     }
 
     static clearGrid() {
-        const gridContainer = document.getElementById('grid-container');
-
-        while (gridContainer.firstChild) {
-            gridContainer.removeChild(gridContainer.firstChild);
+        while (this.gridContainer.firstChild) {
+            this.gridContainer.removeChild(this.gridContainer.firstChild);
         }
     }
 
     static spawnGrid(x, y) {
-        const gridContainer = document.getElementById('grid-container');
+        this.clearGrid();
+        const fragment = document.createDocumentFragment();
 
         for (let i = 0; i < x * y; i++) {
             const gridItem = document.createElement('div');
             gridItem.classList.add('grid-item');
-            gridContainer.appendChild(gridItem);
+            fragment.appendChild(gridItem);
         }
+
+        this.gridContainer.appendChild(fragment);
     }
 
     static render(state) {
-        const gridContainer = document.getElementById('grid-container');
-        let child_index = 0;
+        let childIndex = 0;
 
-        state.map((row, row_index) => {
-            row.map((cell, cell_index) => {
+        state.forEach(row => {
+            row.forEach(cell => {
+                const gridItem = this.gridContainer.children[childIndex++];
                 if (cell) {
-                    gridContainer.children[child_index++].classList.add('active');
+                    gridItem.classList.add('active');
                 } else {
-                    gridContainer.children[child_index++].classList.remove('active');
+                    gridItem.classList.remove('active');
                 }
             });
         });

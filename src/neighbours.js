@@ -1,13 +1,7 @@
 export class Neighbours {
-    static countAlive(board, ...coordinates) {
-        return Neighbours.getCoordinates(board, ...coordinates).reduce((acc, coordinate) => {
-            if (board.getAt(coordinate[0], coordinate[1])) {
-                acc++;
-                return acc;
-            } else {
-                return acc;
-            }
-        }, 0);
+    static countAlive(board, x, y) {
+        return Neighbours.getCoordinates(board, x, y).reduce((acc, [nx, ny]) => 
+            acc + (board.getAt(nx, ny) ? 1 : 0), 0);
     }
 
     static countDead(board, x, y) {
@@ -15,33 +9,13 @@ export class Neighbours {
     }
 
     static getCoordinates(board, x, y) {
-        let allNeighbours = [
-            {coordinate: [x, y - 1], generators: ['sub_y']},
-            {coordinate: [x, y + 1], generators: ['add_y']},
-            {coordinate: [x - 1, y], generators: ['sub_x']},
-            {coordinate: [x + 1, y], generators: ['add_x']},
-            {coordinate: [x - 1, y - 1], generators: ['sub_x', 'sub_y']},
-            {coordinate: [x + 1, y - 1], generators: ['add_x', 'sub_y']},
-            {coordinate: [x - 1, y + 1], generators: ['sub_x', 'add_y']},
-            {coordinate: [x + 1, y + 1], generators: ['add_x', 'add_y']}
+        const directions = [
+            [0, -1], [0, 1], [-1, 0], [1, 0], 
+            [-1, -1], [1, -1], [-1, 1], [1, 1]
         ];
 
-        if (x >= board.x) {
-            allNeighbours = allNeighbours.filter(neighbour => !neighbour.generators.includes('add_x'));
-        }
-
-        if (x <= 1) {
-            allNeighbours = allNeighbours.filter(neighbour => !neighbour.generators.includes('sub_x'));
-        }
-
-        if (y >= board.y) {
-            allNeighbours = allNeighbours.filter(neighbour => !neighbour.generators.includes('add_y'));
-        }
-
-        if (y <= 1) {
-            allNeighbours = allNeighbours.filter(neighbour => !neighbour.generators.includes('sub_y'));
-        }
-
-        return allNeighbours.map((neighbour) => neighbour.coordinate);
+        return directions
+            .map(([dx, dy]) => [x + dx, y + dy])
+            .filter(([nx, ny]) => nx >= 0 && nx < board.x && ny >= 0 && ny < board.y);
     }
 }
