@@ -1,0 +1,9 @@
+{
+  "mount": {
+    "src": "/",
+    "public": "/"
+  },
+  "buildOptions": {
+    "out": "dist"
+  }
+}

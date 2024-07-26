@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+
+# Snowpack build output
+/build/
+
+# Dist
+/dist/
+
+# Snowpack cache
+/.snowpack/
+
+# Babel cache
+.babel_cache/
+
+# MacOS system files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Package lock files (if you prefer to not commit them)
+package-lock.json
+yarn.lock

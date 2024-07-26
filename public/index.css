@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    position: relative;
+}
+
+button {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(100, 1fr);
+    grid-template-rows: repeat(100, 1fr);
+    gap: 2px;
+    margin-top: 40px;
+}
+
+.grid-item {
+    width: 5px;
+    height: 5px;
+    background-color: lightgray;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.grid-item.active {
+    background-color: blue;
+}
