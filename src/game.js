@@ -14,8 +14,6 @@ export class Game {
   }
 
   static launch(x, y, clock) {
-    const gridContainer = document.getElementById('grid-container');
-
     View.clearGrid();
     View.setGridSize(x, y);
     View.spawnGrid(x, y);
